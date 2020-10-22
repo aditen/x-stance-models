@@ -1,0 +1,13 @@
+torch==1.6.0
+torchvision==0.7.0
+torchtext==0.6.0
+pytorch-nlp==0.5.0
+jsonlines==1.2.0
+simplejson==3.17.0
+Flask==1.1.2
+Flask-Cors==3.0.9
+tqdm==4.47.0
+numpy==1.19.0
+bpemb==0.3.2
+scikit-learn==0.23.2
+matplotlib==3.3.2

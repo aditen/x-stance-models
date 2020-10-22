@@ -1,0 +1,11 @@
+.adrian
+.models
+.embeddings
+.data
+.results
+venv
+**.idea
+.xstance
+.word_vectors_cache
+**__pycache__
+**.pkl
