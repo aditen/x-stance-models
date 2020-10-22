@@ -11,7 +11,7 @@ It basically deals with three problems:
 - **Prerequisite**: Python 3.7+ **64-bit** installation 
 - Installation:
     - Install PyTorch (see https://pytorch.org/get-started/locally/)
-    - Create a virtual environment in the code directory, using command `python -m venv .`
+    - Create a virtual environment in the code directory, using command `python -m venv venv`
     - Install required packages using command `pip install -r requirements.txt`
     - run setup script to create folder and download data set using command `python setup.py`
     - Train just the tiny bow model using command `python train_tiny_model.py`
@@ -84,9 +84,43 @@ reads files from in order to display it in the X-Stance Dashboard
 
 # Running evaluation with docker
 First, build the image (replace eval-test with your desired name) using the following command: ``docker build -t eval-test .``
-Then, run it with the following command: ``docker run -p 5000:5000 -v /var/you_models_location:/var/model_app/.results eval-test``
+Then, run it with the following command: ``docker run -p 5000:5000 -v /var/you_models_location:/var/model_app/.models eval-test``
 Replace /var/you_models_location with the location where you store the models
+
+The evaluation app is also deployed on https://x-stance-eval.iten.engineering
+
+It has two endpoints: /predict_bow and /predict_attention
+Both expect a JSON body consistng of a question and comment attribute, for example:
+
+``
+{"question": "Ist das wichtig?", "comment": "Ja wichtig, sehr wichtig sogar. Bürokratie ftw"}
+``
+
+It then again returns a status code of 200 if a prediction can be made and a JSON of the following shape. The attention pipeline
+contains further a 3D double matrix as ``attnWeights`` property:
+
+``
+{
+    "tokens": [
+        "ist",
+        "das",
+        "wichtig",
+        "?",
+        "<sep>",
+        "ja",
+        "wichtig",
+        ",",
+        "sehr",
+        "wichtig",
+        "sogar",
+        ".",
+        "bürokratie",
+        "<unk>"
+    ],
+    "result": "FAVOR",
+    "modelEvaluationDuration": 0.0024328231811523438
+}
+``
 
 # ToDos:
 - Use XXModelProperties in Actual models to determine the parameters instead of passing them from pipeline 
-- Publish finally
