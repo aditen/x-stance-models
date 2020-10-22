@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 bow_evaluation: BoWEvaluationPipeline = BoWEvaluationPipeline(BoWModelProperties.tiny_own_embedding())
 attention_evaluation: AttentionEvaluationPipeline = AttentionEvaluationPipeline(
-    AttentionModelProperties.small_bertrand())
+    AttentionModelProperties.small_bertolt())
 
 
 @app.route('/predict_bow', methods=['POST'])
